@@ -1,0 +1,15 @@
+git status ~> see changes made locally / files added
+
+git add <fileName> ~> adds a specific file named to commit
+git add . ~> adds every file to commit
+git reset ~> remove all added files
+
+git commit -m "Update Message" ~> getting ready to save up the files with push
+git push origin(place where the file was originally created) "branch name" ~> save up everything commited to github
+
+git branch ~> displays every branch, marks current branch with *
+git checkout "branch name" ~> switch to a branch (only if it already exists)
+git checkout -b "branch name" ~> create and switch to branch
+
+git log ~> log of all commits
+git remote -v ~> shows which repos have current file
