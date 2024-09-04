@@ -35,7 +35,7 @@ Unary + before 'two' >>> tries to convert string to number
 */
 2 && 7
 /* 
-Both numbers 2 and 7 are >= 1, this means, coerced to boolean both become true
+Both numbers 2 and 7 are !== 0, this means, coerced to boolean both become true
 && returns the last true value
 In our case answer is 7 <<< ANSWER
 If it was 7 && 2 the answer would be 2

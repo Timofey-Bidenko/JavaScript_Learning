@@ -14,22 +14,23 @@ convert / coerce >>> слова синоніми
 
 undefined + 1;
 /* 
-undefined >>> 0 /// undefined coerced to 0 by JS
-0 + 1 >>> 1 / number (int)
+undefined + 1
+undefined >>> NaN /// undefined coerced to NaN by JS
+NaN + 1 >>> NaN
 */
 'true' == true
 /* 
 JS tries to coerce operands to the same type (number)
-It succeeds with true, turning it into 1,
-however it fails with coercing 'true' to a number, because not a numeric string.
-'true' == 1 >>> false / boolean
+It succeeds with true, turning it into 1
+'true' is not a numeric string, so we get NaN
+NaN == 1 >>> NaN
 */
 false == 'false'
 /* 
 JS tries to coerce operands to the same type (number)
-It succeeds with false, turning it into 0,
-however it fails with coercing 'false' to a number, because not a numeric string.
-'false' == 1 >>> false / boolean
+It succeeds with false, turning it into 0
+'false' is not a numeric string, so we get NaN
+'false' == NaN >>> NaN
 */
 null == ''
 /* 
