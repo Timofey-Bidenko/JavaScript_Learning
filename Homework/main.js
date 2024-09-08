@@ -48,47 +48,12 @@ function CheckIsNumberPrime(N, outputHidden) {
     }
 
     // console.log(IsPrimeNumber ? `Число ${N} є простим числом` : `Число ${N} не є простим числом`)
-
-    if (IsPrimeNumber) {
-        if (!outputHidden) {
-            console.log("Число", N, "є простим числом!")
-        }
-        return true
+    
+    if (!outputHidden) {
+        IsPrimeNumber ? console.log("Число", N, "є простим числом!") : console.log("Число", N, "не є простим числом")
     }
-    // console.log("Число", N, "не є простим числом")
+    return IsPrimeNumber
 }
-
-// CheckIsNumberPrime(Number(prompt("Insert")))
-
-/* for (let i = 100000; i <= 250000; i += 1) {
-    CheckIsNumberPrime(i)
-} */
-
-/* for (let i = 2; i <= 10; i += 1) {
-    const mrSennePrimeNumber = 2**i-1
-    if (!CheckIsNumberPrime(mrSennePrimeNumber) && i > 2) {
-        console.log(`2^${i}-1 is not prime, skipping...`)
-        continue
-    }
-
-    const possiblePerfectNumber = 2**(i-1)*(2**i-1)
-
-    // check if the number IS perfect
-    let startTime = performance.now();
-
-    let sumOfDividers = 0
-    for (let d = 1; d <= possiblePerfectNumber / 2; d += 1) {
-        if (possiblePerfectNumber % d === 0) {
-            sumOfDividers += d
-        } 
-    }
-    let endTime = performance.now();
-    if (sumOfDividers === possiblePerfectNumber) {
-        console.log(possiblePerfectNumber, "Iteration ~>", i, "Time Taken ~>", (endTime - startTime) / 1000)
-    } else {
-     console.log(possiblePerfectNumber, sumOfDividers, "Not perfect!", "Iteration ~>", i, "Time Taken ~>", (endTime - startTime) / 1000)
-    }
-} */
 
 function getPerfectNumbersInRange(min, max) {
     if (!ValidateNumberType(min, "getPerfectNumbersInRange", true, true) || !ValidateNumberType(max, "getPerfectNumbersInRange", true, true)) {
@@ -132,7 +97,7 @@ function getPerfectNumbersInRange(min, max) {
         }
         const possiblePerfectNumber = 2**(i-1)*(possiblePrimeNumberByFormula)
         if (possiblePerfectNumber <= max) {
-            possiblePerfectNumbersInRange[possiblePerfectNumbersInRange.length] = possiblePerfectNumber
+            possiblePerfectNumbersInRange.push(possiblePerfectNumber)
             limitIteration += 1
         }
     }
@@ -148,33 +113,7 @@ function getPerfectNumbersInRange(min, max) {
             console.log(n, "Is a perfect number in range(", Math.max(1, min), "<~>", Math.max(1, max), ")")
         }
     }
-
-    /* for (let n = Math.max(1, min); n <= Math.max(1, max); n += 1) {
-        let sumOfDividers = 0
-        for (let d = 1; d <= n / 2; d += 1) { // d stays for divider
-            if (n % d === 0) {
-                sumOfDividers += d
-            } 
-        }
-        if (sumOfDividers === n) {
-            console.log(n, "Is a prefect number!")
-        }
-    } */
 }
-
-// getPerfectNumbersInRange(1, 8000000000)
-
-/* 
-let limit = 5
-for (let a = 1; a <= limit; a += 1) {
-    console.log(a)
-    if (a%2 === 0) {
-        limit += 1
-    }
-} 
-
-this functionality is nice and I also need it!!! (We can make limits bigger for for loops!)
-*/
 
 function generatePineTree(TreeHeight) {
     if (!ValidateNumberType(TreeHeight, "generatePineTree", true, true, "Pine Tree can't be that small, come on!")) {
@@ -196,4 +135,17 @@ function generatePineTree(TreeHeight) {
     console.log(str)
 }
 
-// generatePineTree(10)
+
+// Code testing section !!! ⤵️⤵️⤵️
+
+// CheckIsNumberPrime(+prompt("Insert"))
+
+/*
+for (let i = 1; i <= 25000; i += 1) {
+    CheckIsNumberPrime(i)
+} 
+*/
+
+// getPerfectNumbersInRange(1, 9000000000)
+
+// generatePineTree(5)
