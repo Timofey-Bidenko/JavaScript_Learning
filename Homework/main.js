@@ -19,7 +19,7 @@ function ValidateNumberType(num, functionName, zeroAllowed, negativesAllowed, sp
     return isNumberType
 }
 
-// https://www.houseofmath.com/uk/encyclopedia/chysla-ta-velychyny/chysla/prosti-chysla-y-rozkladannya-na-mnozhnyky/shcho-take-prosti-chysla >>> Звідси дізнався як відкинути більше ніж 75% всіх існуючих номерів.
+// https://www.houseofmath.com/uk/encyclopedia/chysla-ta-velychyny/chysla/prosti-chysla-y-rozkladannya-na-mnozhnyky/shcho-take-prosti-chysla >>> Звідси дізнався як відкинути більше ніж 75% всіх існуючих номерів (Для пошуку простих чисел).
 
 function CheckIsNumberPrime(N, outputHidden) {
     if (!ValidateNumberType(N, "CheckIsNumberPrime", true, true)) {
@@ -28,11 +28,11 @@ function CheckIsNumberPrime(N, outputHidden) {
 
     let IsPrimeNumber = true
 
-    if (N > 5 && N % 2 === 1) {
+    if (N > 1 && N % 2 === 1) {
         const stringifiedNumber = N.toString()
         
         const lastNumberSymbol = Number(stringifiedNumber[stringifiedNumber.length - 1])
-        const mightBePrime = lastNumberSymbol === 1 || lastNumberSymbol === 3 || lastNumberSymbol === 7 || lastNumberSymbol === 9
+        const mightBePrime = lastNumberSymbol !== 5
         if (mightBePrime) {
             for (let i = 2; i <= Math.sqrt(N); i += 1) {
                 if (N % i === 0) {
