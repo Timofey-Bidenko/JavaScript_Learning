@@ -39,7 +39,7 @@ function camelCase(str, separator) {
     return newStr
 }
 
-console.log(doubleLetter("Nicer"))
+// console.log(doubleLetter("Nicer"))
 
 // console.log(padString("Ivan", 6, "*"))
 
