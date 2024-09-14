@@ -7,7 +7,9 @@ function reverseString(str) { // Приймає рядок, повертає ц�
 }
 
 function isPalindrome(str) { // Приймає рядок, повертає чи є рядок паліндромом.
-    return str === reverseString(str)
+    if (str === reverseString(str)) return true;
+    const strWithoutSpaces = str.replaceAll(" ", "")
+    return strWithoutSpaces === reverseString(strWithoutSpaces)
 }
 
 function findGCD(a, b) { // Приймає два числа, повертає найвищий спільний дільник.
@@ -27,6 +29,9 @@ function findGCD(a, b) { // Приймає два числа, повертає �
     return greatestDivisor
 }
 
-console.log(reverseString("Hello World!"))
-console.log(isPalindrome("Hello World!"))
-console.log(findGCD(2, 5))
+// console.log(reverseString("Hello World!"))
+// console.log(isPalindrome("Hello World!"))
+// console.log(findGCD(2, 5))
+
+// console.log(isPalindrome("а мене нема")) // true
+// console.log(isPalindrome("і що сало ласощі")) // true

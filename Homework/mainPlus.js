@@ -28,7 +28,7 @@ function reverseString(str = "!retemarap eht tes ot togrof uoY >>> ]gnirtSesreve
 
 function isPalindrome(str = "[isPalindrome] >>> You forgot to set the parameter!") { // Приймає рядок, повертає чи є рядок паліндромом.
     if (!ValidateByType(str, "string", "isPalindrome")) return;
-    if (str === reverseString(str)) {
+    if (str.toLowerCase() === reverseString(str.toLowerCase()) || str.replaceAll(" ", "").toLowerCase() === reverseString(str.replaceAll(" ", "").toLowerCase())) {
         console.log(`"${str}" IS a Palindrome (true)`)
         return true
     }
@@ -60,5 +60,8 @@ function findGCD(a = 0, b = 0) { // Приймає два числа, повер
 }
 
 // console.log(reverseString())
-// isPalindrome("racecar")
+// isPalindrome("Racecar")
 // console.log(findGCD(26, 282))
+
+// isPalindrome("а мЕне немА") // true
+// isPalindrome("І що сало ласоЩі") // true
