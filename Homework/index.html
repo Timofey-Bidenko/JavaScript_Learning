@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiiitleee</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        @keyframes gradientShift {
+            0% {
+                background-size: 300% 300%;
+                background-position: 0% 0%;
+            }
+            25% {
+                background-position: 100% 0%;
+            }
+            50% {
+                background-size: 300% 100%;
+                background-position: 100% 100%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-size: 300% 300%;
+                background-position: 0% 0%;
+            }
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 10px 0px 10px;
+            gap: 3.5%;
+            background: linear-gradient(45deg, hsl(224, 50%, 62%), hsl(224, 80%, 62%) 50%, hsl(260, 30%, 62%)); /* Default gradient */
+            background-size: 300% 300%;
+            animation: gradientShift 20s ease infinite; /* Apply the gradient animation */
+        }
+        .box {
+            background-color: rgb(15, 15, 15);
+            padding: 12px;
+            border-radius: 12px;
+            opacity: 0.75;
+            max-width: 200px;
+            flex-shrink: 1;
+        }
+        @keyframes fadeOut {
+            from {
+                scale: 1;
+                background-color: rgb(15, 15, 15);
+                padding: 12px;
+                border-radius: 20px;
+                opacity: 0.75; /* Initial opacity */
+            }
+            to {
+                scale: 1.4;
+                background-color: rgb(25, 25, 25);
+                padding: 0px;
+                border-radius: 8px;
+                opacity: 1; /* Final opacity */
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                scale: 1.4;
+                background-color: rgb(25, 25, 25);
+                padding: 0px;
+                border-radius: 8px;
+                opacity: 1; /* Initial opacity for fade-in */
+            }
+            to {
+                scale: 1;
+                background-color: rgb(15, 15, 15);
+                padding: 12px;
+                border-radius: 20px;
+                opacity: 0.75; /* Final opacity */
+            }
+        }
+
+        .box:hover {
+            animation: fadeOut 0.2s forwards; /* Apply the fadeOut animation */
+        }
+
+        .box:not(:hover) {
+            animation: fadeIn 0.2s forwards; /* Reverse effect on mouse leave */
+        }
+
+        @keyframes glowIn {
+            from {
+                padding: 0px;
+                text-shadow: 0 0 0 rgba(0, 255, 255, 0); /* No glow */
+            }
+            to {
+                padding: 2px 10px 12px 10px;
+                text-shadow: 8px 8px 20px hsl(224, 100%, 62%); /* Glowing effect */
+            }
+        }
+
+        @keyframes glowOut {
+            from {
+                padding: 2px 10px 12px 10px;
+                text-shadow: 0 0 20px hsl(224, 100%, 62%); /* Glowing effect */
+            }
+            to {
+                padding: 0px;
+                text-shadow: 0 0 0 rgba(0, 255, 255, 0); /* No glow */
+            }
+        }
+
+        .box:hover h3, .box:hover p {
+            animation: glowIn 0.2s forwards; /* Apply the glowing effect */
+        }
+
+        .box:not(:hover) h3, .box:not(:hover) p {
+            animation: glowOut 0.2s forwards; /* Remove the glowing effect */
+        }
+
+
+        h3 {
+            color: aliceblue;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            margin: 0;
+            border-bottom: 2px solid aliceblue; /* Adds a line under the title */
+        }
+        p {
+            color: aliceblue;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px; /* Smaller font size for the description */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>main.js</h3>
+        <p>No checks or additional functionality</p>
+    </div>
+    <div class="box">
+        <h3>mainPlus.js</h3>
+        <p>With checks, no additional functionality</p>
+    </div>
+    <div class="box">
+        <h3>mainPro.js</h3>
+        <p>With checks and additional functionality</p>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
