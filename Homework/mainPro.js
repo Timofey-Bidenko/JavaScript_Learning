@@ -20,13 +20,35 @@ function findCommonElements(array1, array2) {
     return newArray
 }
 
+function min(object) {
+    let lowestValue = Infinity
+    for (i in object) {
+        const elementPtF = parseFloat(object[i])
+        if (!isNaN(elementPtF) && typeof(elementPtF) == "number") {
+            if (elementPtF < lowestValue) lowestValue = elementPtF;
+        }
+    }
+    return lowestValue
+}
+
+function max(object) {
+    let biggestValue = -Infinity
+    for (i in object) {
+        const elementPtF = parseFloat(object[i])
+        if (!isNaN(elementPtF) && typeof(elementPtF) == "number") {
+            if (elementPtF > biggestValue) biggestValue = elementPtF;
+        }
+    }
+    return biggestValue
+}
+
 function analyzeArray(object){
     if (typeof(object) !== "object") return;
     let result = {
         sum: 0,
         average: 0,
-        min: Infinity,
-        max: -Infinity,
+        min: min(object),
+        max: max(object),
     }
     let addedElements = 0
 

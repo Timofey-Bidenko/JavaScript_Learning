@@ -16,17 +16,31 @@ function findCommonElements(array1, array2) {
     return newArray
 }
 
+function min(array) {
+    let lowestValue = array[0]
+    array.forEach(element => {
+        if (element < lowestValue) lowestValue = element;
+    })
+    return lowestValue
+}
+
+function max(array) {
+    let biggestValue = array[0]
+    array.forEach(element => {
+        if (element > biggestValue) biggestValue = element;
+    })
+    return biggestValue
+}
+
 function analyzeArray(array){
     let result = {
         sum: 0,
         average: 0,
-        min: array[0],
-        max: array[0],
+        min: min(array),
+        max: max(array),
     }
     array.forEach(element => {
         result.sum += element
-        result.min = Math.min(result.min, element)
-        result.max = Math.max(result.max, element)
     });
     result.average = result.sum / array.length
     return result

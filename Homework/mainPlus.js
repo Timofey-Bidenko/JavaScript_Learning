@@ -18,21 +18,38 @@ function findCommonElements(array1, array2) {
     return newArray
 }
 
+function min(array) {
+    let lowestValue = Infinity
+    array.forEach(element => {
+        if (!isNaN(element) && typeof(element) == "number") {
+            if (element < lowestValue) lowestValue = element;
+        }
+    })
+    return lowestValue
+}
+
+function max(array) {
+    let biggestValue = -Infinity
+    array.forEach(element => {
+        if (!isNaN(element) && typeof(element) == "number") {
+            if (element > biggestValue) biggestValue = element;
+        }
+    })
+    return biggestValue
+}
+
 function analyzeArray(array){
     if (!Array.isArray(array)) return;
     let result = {
         sum: 0,
         average: 0,
-        min: Infinity,
-        max: -Infinity,
+        min: min(array),
+        max: max(array),
     }
     let addedElements = 0
     array.forEach(element => {
-        //const elementToFloat // Do the parseFloat() once, store it to save performance
         if (typeof(element) === "number" && isFinite(element)) {
             result.sum += element
-            result.min = Math.min(result.min, element)
-            result.max = Math.max(result.max, element)
             addedElements++
         }
     });
