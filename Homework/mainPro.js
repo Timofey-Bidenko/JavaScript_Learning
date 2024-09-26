@@ -1,4 +1,6 @@
 function getPrimeNumbers(array) {
+    if (!Array.isArray(array)) return "[getPrimeNumbers] >>> Array type argument is expected.";
+
     // code V2 here. V1 commented below.
     return array.map(Num => parseInt(Num)).filter(N => { // Num/N >>> element, just like in .forEach
 
@@ -61,13 +63,13 @@ function getNotifications(object) {
 
     // Leave out all invalid Instances inside main object
     for (i in object) {
-        if (typeof(object[i]) === "object" && Boolean(object[i]["source"])) arrayToGroup.push(object[i]);
+        if (typeof(object[i]) === "object" && ["source"] in object[i]) arrayToGroup.push(object[i]);
         else console.log(`[getNotifications] >>> Instance at index "${i}" is either not an object type or does not have "source" property in it. It was left out.`);
     }
 
     // sort every valid Instance inside main object by date
     const sortedByDate = arrayToGroup.sort(function(a, b) {
-        if (!Boolean(a["date"]) || !Boolean(b["date"])) return 0; // Dont sort if date not there in a or b
+        if (!("date" in a) || !("date" in b)) return 0; // Dont sort if date not there in a or b
         if (typeof(a.date) !== "string" || typeof(a.date) !== "string") return 0; // Dont sort if date given in wrong format in a or b
         if (a.date.split("-").length !== 3 || b.date.split("-").length !== 3) return 0; // Dont sort if date not full in a or b
         const aDateNum = Number(a.date.split("-").reverse().join(""))
@@ -88,32 +90,15 @@ function group(object, groupBy) {
     let newObject = {}
 
     for (i in object) {
-        if (typeof(object[i]) === "object" && Boolean(object[i][groupBy])) {
+        if (typeof(object[i]) === "object" && groupBy in object[i]) {
             const element = object[i]
-            if (newObject[element[groupBy]]) {
+            if (element[groupBy] in newObject) {
                 newObject[element[groupBy]].push(element)
             } else {
                 newObject[element[groupBy]] = [element]
             }
         } else console.log(`[group] >>> Instance at index "${i}" is either not an object type or does not have "${groupBy}" property in it. It was left out.`);
     }
-
-    /* let veryNewObject = {}
-
-    for (i in newObject) {
-        // console.log(newObject[i])
-        let flattenedObjects = []
-        for (index in newObject[i]) {
-            // console.log(newObject[i][index])
-            for (iindex in newObject[i][index]) {
-                if (iindex !== groupBy) flattenedObjects.push(newObject[i][index][iindex]);
-            }
-        }
-        // console.log(flattenedObjects)
-        // flattenedObjects.join()
-        veryNewObject[i] = flattenedObjects
-        // veryNewObject[i] = newObject[i].flat(Infinity)
-    } */
 
     return newObject
 }

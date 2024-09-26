@@ -1,4 +1,6 @@
 function getPrimeNumbers(array) {
+    if (!Array.isArray(array)) return "[getPrimeNumbers] >>> Array type argument is expected.";
+
     return array.filter(N => { // N >>> element, just like in .forEach
         if (isNaN(N) || typeof(N) !== "number") return false; // filter all non-numeric values of given array out!
 
@@ -29,7 +31,7 @@ function getNotifications(array) {
     let errorText = null
     for (i in array) {
         if (typeof(array[i]) !== "object") errorText = `[getNotifications] >>> Array should only have object type instances in it! Fix needed at index ${i}`;
-        else if (!Boolean(array[i]["source"])) errorText = `[getNotifications] >>> Each object is required to have "source" property in it! Fix needed at index ${i}`;
+        else if (!(["source"] in array[i])) errorText = `[getNotifications] >>> Each object is required to have "source" property in it! Fix needed at index ${i}`;
         if (errorText) break;
     }
     if (errorText) return errorText;
@@ -47,10 +49,10 @@ function group(array, groupBy) {
     for (i in array) {
         const element = array[i]
 
-        if (!Boolean(element[groupBy])) errorText = `[group] >>> Given array should only have object type instances, each having "${groupBy}" property in it! Fix needed at index ${i}`;
+        if (!(groupBy in element)) errorText = `[group] >>> Given array should only have object type instances, each having "${groupBy}" property in it! Fix needed at index ${i}`;
         if (errorText) break;
 
-        if (object[element[groupBy]]) {
+        if (element[groupBy] in object) {
             object[element[groupBy]].push(element)
         } else {
             object[element[groupBy]] = [element]

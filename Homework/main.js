@@ -29,14 +29,14 @@ function getNotifications(array) {
 function group(array, groupBy) {
     let object = {}
     array.forEach(element => {
-        // console.log(Boolean(object[element[groupBy]]), object[element[groupBy]])
-        // console.log(!Boolean(object[element[groupBy]]) ? `${element[groupBy]} was added!` : `${element[groupBy]} already there YaY`)
-        if (object[element[groupBy]]) {
+        // console.log(element[groupBy] in object, object[element[groupBy]])
+        // console.log(!(element[groupBy] in object) ? `${element[groupBy]} was added!` : `${element[groupBy]} already there YaY`)
+        if (element[groupBy] in object) {
             object[element[groupBy]].push(element)
         } else {
             object[element[groupBy]] = [element]
         }
-        // console.log(Boolean(object[element[groupBy]]) ? object[element[groupBy]].length : "Uh oh, lenght 0! (This never happens if code works right)")
+        // console.log((element[groupBy] in object) ? object[element[groupBy]].length : "Uh oh, lenght 0! (This never happens if code works right)")
     });
     return object
 }
