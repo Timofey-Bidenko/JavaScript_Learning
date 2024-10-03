@@ -1,5 +1,3 @@
-// Вам необхідно написати функцію-декоратор logArguments(fn), яка приймає на вхід функцію і додає можливість логувати всі аргументи, передані у функцію-аргумент.
-
 function logArguments(fn) {
     return function(...args) {
         console.log(...args) // spread arguments to be a nicely readable list
@@ -9,45 +7,33 @@ function logArguments(fn) {
 
 
 
-// Вам необхідно написати функцію-декоратор validate(fn, validator), яка приймає на вхід функцію і додає можливість перевіряти аргументи, передані у функцію fn, на відповідність заданому validator. Якщо аргументи не проходять перевірку, то декоратор має викидати виняток.
-
 function validate(fn, validator) {
     return function(...args) {
-        const validatedArgs = []
-        args.forEach(element => {
-            if (validator(element)) {
-                validatedArgs.push(element)
-            }
-        })
-        if (validatedArgs.length > 0) {
-            return fn(...validatedArgs)
+        if (validator(...args)) {
+            return fn(...args)
+        } else {
+            throw new Error("None of the arguments have passed the validation!")
         }
     }
 }
 
 
 
-// Вам необхідно написати функцію-декоратор retry(fn, maxAttempts), яка приймає на вхід функцію і додає можливість викликати функцію з максимальною кількістю спроб у разі помилки та повертає результат останнього виклику.
-
 function retry(fn, maxAttempts) {
     let totalAttempts = 0
     let lastResult = null
-    
+
     return function(...args) {
-        let firstRunUsed = false
-        while (maxAttempts > totalAttempts || !firstRunUsed) {
-            firstRunUsed = true
-            try {
-                lastResult = fn(...args)
-                totalAttempts = 0 // reset attempts after success
-                return lastResult
-            } catch (error) {
-                totalAttempts++ // count attempts, only if retrying
-                console.log("Last result ~>", lastResult)
-                console.log(`Attempt ${totalAttempts} Error! ~>`, error)
-            }
+        if (totalAttempts >= maxAttempts) {
+            setTimeout(() => {
+                throw new Error("Max Attempts Limit Reached")
+            }, 1);
+            return lastResult
+        } else {
+            lastResult = fn(...args)
+            totalAttempts++
+            return lastResult
         }
-        return "Max Attempts Limit Reached" // this will only run if while loop has ended
     }
 }
 
@@ -57,24 +43,31 @@ function retry(fn, maxAttempts) {
 
 // // // TESTING // // //
 // function squareRoot(x) {
-//     if (x < 0) throw new Error("Cannot take square root of a negative number")
 //     return Math.sqrt(x)
 // }
 
 // const loggedSquareRoot = logArguments(squareRoot)
-// console.log(loggedSquareRoot(9)) // Logs: 9, returns: 3
-// // console.log(loggedSquareRoot(-1)) // Logs: -1, throws error: "Cannot take square root of a negative number"
+// console.log(loggedSquareRoot(9)) // Log >>> 9 // result >>> 3
+// console.log(loggedSquareRoot(-1)) // Log >>> -1 // result >>> NaN
 
 
-// function isNonNegative(n) {
-//     return typeof (n) === 'number' && n >= 0
+// function isNonNegative(...args) {
+//     return args.every((n) => typeof(n) === "number" && n >= 0)
 // }
 // const validatedSquareRoot = validate(squareRoot, isNonNegative)
-// console.log(validatedSquareRoot(16)) // Returns: 4
-// console.log(validatedSquareRoot(-1)) // Won't call squareRoot, no output (undefined)
+// console.log(validatedSquareRoot(16)) //  4
+// console.log(validatedSquareRoot(-1)) // Error (by manual code)
 
 
-// const retriedSquareRoot = retry(squareRoot, -1)
+// const retriedSquareRoot = retry(squareRoot, 2)
 // console.log(retriedSquareRoot(25)) // 5
 // console.log(retriedSquareRoot(36)) // 6
-// console.log(retriedSquareRoot(-25)) // Errors
+// console.log(retriedSquareRoot(16)) // last result + Error (by manual code)
+
+/*
+for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+        console.log(retriedSquareRoot(16)) // last result + Error (by manual code)
+    }, i*1000);
+}
+*/
