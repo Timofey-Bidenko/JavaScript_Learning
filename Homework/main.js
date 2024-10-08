@@ -45,12 +45,16 @@ const notifArray = [
     { source: "facebook", text: "Group post liked", date: "18-09-2024" },
 ]
 
-notifArray[Symbol.iterator] = function() {
+const notifObj = Object.groupBy(notifArray, object => object.source)
+
+notifObj[Symbol.iterator] = function() {
     const flattenedArray = []
 
-    for (const objNum in this) { // this >>> notifArray object itself // objNum >>> keys of notifArray that refer to objects (objNum, because its a number, since its an array)
-        for (const key in this[objNum]) {
-            flattenedArray.push(key, this[objNum][key]) // this[objNum][key] >>> value
+    for (const key in this) { // keys of main Object
+        for (const kkey in this[key]) { // keys of object Arrays (Arrays with objects inside)
+            for (const kkkey in this[key][kkey]) { // keys of objects that are inside arrays
+                flattenedArray.push(kkkey, this[key][kkey][kkkey])
+            }
         }
     }
 
@@ -66,7 +70,7 @@ notifArray[Symbol.iterator] = function() {
     }
 }
 
-// for (const element of notifArray) {
+// for (const element of notifObj) {
 //     console.log("element:", element)
 // }
 
