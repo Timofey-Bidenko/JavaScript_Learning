@@ -11,33 +11,33 @@ function Student(firstName, lastName, birthYear, courseName) {
 }
 
 const studentProto = {
-    addGrade(grade, course) {
+    addGrade(grade, course) { // number aka grade + course name that the student is currently in are expected
         this.courses[course].grades.push(grade)
     },
-    addAttendance(attendance, course) {
+    addAttendance(attendance, course) { // boolean aka attendance + course name that the student is currently in are expected
         this.courses[course].attendances.push(attendance)
     },
-    getAverageGrade(course) {
+    getAverageGrade(course) { // course name that the student is currently in is expected
         console.log(course, this.courses[course])
         return this.courses[course].grades.reduce((totalGrade, currentGrade) => totalGrade + currentGrade, 0) / this.courses[course].grades.length
     },
-    getAverageAttendance(course) {
+    getAverageAttendance(course) { // course name that the student is currently in is expected
         return `${parseInt(this.getCompletedLessonsList(course) / this.courses[course].attendances.length * 100)}%`
     },
-    getCompletedLessonsList(course) {
+    getCompletedLessonsList(course) { // course name that the student is currently in is expected
         return this.courses[course].attendances.reduce((totalAttendance, currentAttendance) => totalAttendance + (currentAttendance ? 1 : 0), 0)
     },
-    replaceCourse(currentCourse, newCourse) {
+    replaceCourse(currentCourse, newCourse) { // course name that the student is currently in + new course name as string are expected
         this.removeCourse(currentCourse)
         this.addCourse(newCourse)
     },
-    addCourse(courseName) {
+    addCourse(courseName) { // course name that the student is currently in is expected
         this.courses[courseName] = {
             grades: [],
             attendances: [],
         }
     },
-    removeCourse(courseName) {
+    removeCourse(courseName) { // course name that the student is currently in is expected
         delete this.courses[courseName]
     },
     getAllInformation() {
@@ -69,7 +69,7 @@ function getStudentId(student) {
     return `${student.firstName}-${student.lastName}-${student.birthYear}`
 }
 
-function Group(studensToGroup) {
+function Group(studensToGroup) { // array of student class instances is expected
     this.students = {}
     studensToGroup.forEach(student => {
         this.students[getStudentId(student)] = student
@@ -77,17 +77,17 @@ function Group(studensToGroup) {
 }
 
 const groupProto = {
-    addStudent_s(studentsToAdd) {
+    addStudent_s(studentsToAdd) { // array of student class instances is expected
         studentsToAdd.forEach(student => {
             this.students[getStudentId(student)] = student
         })
     },
-    removeStudent_s(studentsToRemove) {
+    removeStudent_s(studentsToRemove) { // array of student class instances is expected
         studentsToRemove.array.forEach(student => {
             delete this.students[getStudentId(student)]
         })
     },
-    getStudentsRankingByGradesInCourse(courseName) {
+    getStudentsRankingByGradesInCourse(courseName) { // name of the course where all students of the group have at least one grade is expected
         const toSort = []
         for (const studentId in this.students) {
             toSort.push(this.students[studentId])
@@ -95,7 +95,7 @@ const groupProto = {
         const sorted = toSort.sort((st1, st2) => st2.getAverageGrade(courseName) - st1.getAverageGrade(courseName))
         return sorted.map(student => [getStudentId(student), student.getAverageGrade(courseName), student])
     },
-    getStudentsRankingByAttendanceInCourse(courseName) {
+    getStudentsRankingByAttendanceInCourse(courseName) { // name of the course where all students of the group have at least one attendance is expected
         const toSort = []
         for (const studentId in this.students) {
             toSort.push(this.students[studentId])
