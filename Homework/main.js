@@ -85,7 +85,7 @@ const groupProto = {
     removeStudent_s(studentsToRemove) {
         studentsToRemove.array.forEach(student => {
             delete this.students[getStudentId(student)]
-        });
+        })
     },
     getStudentsRankingByGradesInCourse(courseName) {
         const toSort = []
@@ -102,46 +102,46 @@ Group.prototype = groupProto
 
 
 
-// Create a new student instance
-const student1 = new Student('John', 'Doe', 2002, 'Math');
+// // Create a new student instance
+// const student1 = new Student('John', 'Doe', 2002, 'Math')
 
-// Add some grades and attendance
-student1.addGrade(90, 'Math');
-student1.addGrade(85, 'Math');
-student1.addAttendance(true, 'Math');
-student1.addAttendance(false, 'Math');
-student1.addAttendance(true, 'Math');
+// // Add some grades and attendances
+// student1.addGrade(90, 'Math')
+// student1.addGrade(85, 'Math')
+// student1.addAttendance(true, 'Math')
+// student1.addAttendance(false, 'Math')
+// student1.addAttendance(true, 'Math')
 
-// Check average grade and attendance
-console.log('Average Grade in Math:', student1.getAverageGrade('Math')); // Should print the average of 90 and 85
-console.log('Average Attendance in Math:', student1.getAverageAttendance('Math')); // Should print attendance ratio
+// // Check average grade and attendance
+// console.log('Average Grade in Math:', student1.getAverageGrade('Math')) // Should print the average of 90 and 85
+// console.log('Average Attendance in Math:', student1.getAverageAttendance('Math')) // Should print attendance ratio
 
-// Add a new course
-student1.addCourse('History');
-student1.addGrade(75, 'History');
-student1.addAttendance(true, 'History');
-student1.addAttendance(true, 'History');
+// // Add a new course
+// student1.addCourse('History')
+// student1.addGrade(75, 'History')
+// student1.addAttendance(true, 'History')
+// student1.addAttendance(true, 'History')
 
-// Check the student's overall information
-console.log(student1.getAllInformation());
+// // Check the student's overall information
+// console.log(student1.getAllInformation())
 
-// Replace a course
-/*student1.replaceCourse('Math', 'Physics');
-console.log('After replacing Math with Physics:', student1.getAllInformation());*/
+// // Replace a course
+// /*student1.replaceCourse('Math', 'Physics')
+// console.log('After replacing Math with Physics:', student1.getAllInformation())*/
 
-// Remove a course
-student1.removeCourse('History');
-console.log('After removing History:', student1.getAllInformation());
+// // Remove a course
+// student1.removeCourse('History')
+// console.log('After removing History:', student1.getAllInformation())
 
-const student2 = new Student('Jane', 'Doe', 2002, 'Math');
-student2.addGrade(50, "Math")
+// const student2 = new Student('Jane', 'Doe', 2002, 'Math')
+// student2.addGrade(50, "Math")
 
-const student3 = new Student("Andriy", "Kovbasov", 1999, "Math")
-student3.addGrade(73, "Math")
-student3.addGrade(37, "Math")
-student3.addGrade(77, "Math")
-student3.addGrade(33, "Math")
+// const student3 = new Student("Andriy", "Kovbasov", 1999, "Math")
+// student3.addGrade(73, "Math")
+// student3.addGrade(37, "Math")
+// student3.addGrade(77, "Math")
+// student3.addGrade(33, "Math")
 
-const mathGroup = new Group([student1, student2, student3])
-console.log(mathGroup)
-console.log(mathGroup.getStudentsRankingByGradesInCourse("Math"));
+// const mathGroup = new Group([student1, student2, student3])
+// console.log(mathGroup)
+// console.log(mathGroup.getStudentsRankingByGradesInCourse("Math"))
