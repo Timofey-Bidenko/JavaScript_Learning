@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSS (Student-School System)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="centerFlexDefault">
+    <div id="MainBox" class="borderPlusShadowBlue centerFlexDefault">
+        <div id="groups" class="panel borderPlusShadowBlue hideScrollbar centerFlexDefault">
+            <div class="pTitle centerFlexDefault">
+                <h4>My Groups</h4>
+            </div>
+            <div class="box centerFlexDefault hoverScaleY none" id="groupTemplate">
+                <p>[GroupName]</p>
+                <div class="buttons centerFlexDefault">
+                    <div class="buttonIcon minusButton"></div>
+                </div>
+            </div>
+            <div class="buttonBox centerFlexDefault hoverScaleY" id="addGroupButton">
+                <h4>Add new group</h4>
+                <div class="buttons centerFlexDefault">
+                    <div class="buttonIcon plusButton"></div>
+                </div>
+            </div>
+        </div>
+        <div id="ManageGroupAndStudents" class="panel borderPlusShadowBlue hideScrollbar centerFlexDefault">
+            <div class="half hideScrollbar">
+                <div class="pTitle centerFlexDefault">
+                    <h4>Manage [GroupName]</h4>
+                </div>
+                <div class="manageBox none popUpAnim" id="manageGroup">
+                    <div class="box centerFlexDefault hoverScaleY">
+                        <p>Group Name:</p>
+                        <input type="text" placeholder="New Group Name">
+                    </div>
+                </div>
+            </div>
+            <div class="half hideScrollbar">
+                <div class="pTitle centerFlexDefault">
+                    <h4>Students of [GroupName]</h4>
+                </div>
+                <div class="box centerFlexDefault hoverScaleY none" id="studentTemplate">
+                    <p>[StudentName]</p>
+                    <div class="buttons centerFlexDefault">
+                        <div class="buttonIcon minusButton"></div>
+                    </div>
+                </div>
+                <div class="buttonBox centerFlexDefault hoverScaleY" id="addStudentButton">
+                    <h4>Add new student</h4>
+                    <div class="buttons centerFlexDefault">
+                        <div class="buttonIcon plusButton"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="studentManagement" class="panel borderPlusShadowBlue hideScrollbar centerFlexDefault">
+            <div class="pTitle centerFlexDefault">
+                <h4>Manage [StudentName]</h4>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

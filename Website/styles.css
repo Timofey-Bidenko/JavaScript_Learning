@@ -1,0 +1,286 @@
+:root {
+    /* Values */
+    --openPanelsAmount: 3;
+
+    --BoxShadowSize: 2px;
+    --BoxShadowSizeN: -2px;
+    --BoxShadowFade: 5px;
+
+    /* Color Palette Fast Config */
+    --value: 62%;
+    --saturation: 100%;
+    --darkValue: 44%;
+    --darkSaturation: 62%;
+    /* Colors */
+    --mainBgColor: rgba(21, 21, 21, 0.95);
+    --secondaryBgColor: rgba(21, 21, 21, 0.2);
+    --transparentColor: rgba(0, 0, 0, 0);
+    --textColor: rgba(245, 245, 245, 1);
+    --secondaryColor: rgba(31, 31, 31, 1);
+    /* Colors (Palette Basic [RGB]) */
+    --red: hsl(0, var(--saturation), var(--value));
+    --darkRed: hsl(0, var(--darkSaturation), var(--darkValue));
+    --green: hsl(117, var(--saturation), var(--value));
+    --darkGreen: hsl(117, var(--darkSaturation), var(--darkValue));
+    --blue: hsl(224, var(--saturation), var(--value));
+    --darkBlue: hsl(224, var(--darkSaturation), var(--darkValue));
+    /* More Colors (Palette Extra) */
+    --white: hsl(0, 0%, var(--value));
+    --darkWhite: hsl(0, 0%, var(--darkValue));
+    --orange: hsl(30, var(--saturation), var(--value));
+    --darkOrange: hsl(30, var(--darkSaturation), var(--darkValue));
+    --yellow: hsl(52, var(--saturation), var(--value));
+    --darkYellow: hsl(52, var(--darkSaturation), var(--darkValue));
+    --cyan: hsl(170, var(--saturation), var(--value));
+    --darkCyan: hsl(170, var(--darkSaturation), var(--darkValue));
+    --purple: hsl(270, var(--saturation), var(--value));
+    --darkPurple: hsl(270, var(--darkSaturation), var(--darkValue));
+    --pink: hsl(300, var(--saturation), var(--value));
+    --darkPink: hsl(300, var(--darkSaturation), var(--darkValue));
+    /* Anims */
+    --hover: 0.2s;
+    --tweenTime: 0.7s;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.centerFlexDefault {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    flex-direction: column;
+    justify-content: space-between;
+
+    background-color: var(--mainBgColor);
+}
+
+#MainBox {
+    width: calc(80% - 16px);
+    height: calc(80% - 16px);
+    padding: 8px;
+
+    background-color: var(--blue);
+    border-radius: 12px;
+
+    justify-content: space-between;
+}
+
+.panel {
+    width: calc(96% / var(--openPanelsAmount) - 8px);
+    height: calc(100% - 8px);
+
+    padding: 4px;
+
+    background-color: var(--secondaryBgColor);
+    border-radius: 8px;
+
+    flex-direction: column;
+    justify-content: start;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#ManageGroupAndStudents {
+    justify-content: space-between;
+    overflow-y: hidden;
+}
+
+.half {
+    flex-grow: 1;
+
+    width: 100%;
+    min-height: 49%;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    margin-bottom: 4px;
+}
+
+.pTitle, .box, .buttonBox {
+    width: calc(100% - 8px);
+    height: 5vh;
+
+    background-color: var(--darkBlue);
+    border-radius: 6px;
+
+    padding: 0 4px;
+
+    color: var(--textColor);
+
+    overflow: hidden;
+}
+
+.pTitle, .buttonBox {
+    font-size: 3vh;
+}
+
+.box, .buttonBox {
+    margin: 8px 0;
+    justify-content: space-between;
+}
+
+.box {
+    font-size: 2.4vh;
+}
+
+.buttonBox {
+    cursor: pointer;
+    order: 999;
+}
+
+.buttons {
+    width: 40%;
+    height: 100%;
+    justify-content: end;
+    gap: 3%;
+}
+
+.buttonIcon {
+    flex-grow: 2;
+    max-height: 80%;
+    aspect-ratio: 1 / 1;
+
+    background-color: var(--secondaryBgColor);
+    border-radius: 100%;
+}
+
+.plusButton, .minusButton {
+    position: relative;
+}
+
+.plusButton:after, .plusButton:before, .minusButton:after {
+    content:'';
+    position:absolute;
+    width: 60%;
+    height: 10%;
+    background-color: var(--green);
+    border-radius: 8px;
+    top: 45%;
+    left: 20%;
+}
+
+.minusButton:after {
+    background-color: var(--red);
+}
+
+.plusButton:after{
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    transform:rotate(90deg);
+}
+
+.manageBox input {
+    width: 40%;
+    height: calc(90% - 8px);
+    border: none;
+    background-color: var(--blue);
+    border-radius: 4px;
+    color: var(--textColor);
+    font-weight: bold;
+    text-align: center;
+}
+
+.manageBox input:focus {
+    border: 2px solid var(--cyan);
+    outline: none;
+}
+
+.manageBox input::placeholder {
+    color: var(--cyan);
+    font-weight: lighter;
+}
+
+
+
+
+
+
+
+.borderPlusShadowBlue {
+    border: 2px solid var(--darkBlue);
+    box-shadow: 
+    var(--BoxShadowSize) var(--BoxShadowSize) var(--BoxShadowFade) var(--darkBlue),
+    var(--BoxShadowSize) var(--BoxShadowSizeN) var(--BoxShadowFade) var(--darkBlue),
+    var(--BoxShadowSizeN) var(--BoxShadowSize) var(--BoxShadowFade) var(--darkBlue),
+    var(--BoxShadowSizeN) var(--BoxShadowSizeN) var(--BoxShadowFade) var(--darkBlue);
+}
+
+.hideScrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.none {
+    display: none;
+}
+
+@keyframes hoverScaleYIn {
+    100% {
+        height: 6vh;
+    }
+}
+@keyframes hoverScaleYOut {
+    0% {
+        height: 6vh;
+    }
+    100% {
+        height: 5vh;
+    }
+}
+
+@keyframes buttonsFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes buttonsFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.hoverScaleY:hover {
+    animation: hoverScaleYIn var(--hover) ease forwards;
+}
+
+.hoverScaleY:not(:hover) {
+    animation: hoverScaleYOut var(--hover) ease forwards;
+}
+
+.hoverScaleY:hover .buttons {
+    animation: buttonsFadeIn var(--hover) ease forwards;
+}
+
+.hoverScaleY:not(:hover) .buttons {
+    animation: buttonsFadeOut var(--hover) ease forwards;
+}
+
+@keyframes popUp {
+    0% {
+        scale: 0;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+.popUpAnim {
+    animation: popUp var(--tweenTime) forwards cubic-bezier(0.1, 1.4, 0.5, 1);
+}
