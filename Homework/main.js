@@ -19,7 +19,7 @@ const studentProto = {
     },
     getAverageGrade(course) {
         console.log(course, this.courses[course])
-        return this.courses[course].grades.length === 1 ? this.courses[course].grades[0] : this.courses[course].grades.reduce((totalGrade, currentGrade) => totalGrade + currentGrade, 0) / this.courses[course].grades.length
+        return this.courses[course].grades.reduce((totalGrade, currentGrade) => totalGrade + currentGrade, 0) / this.courses[course].grades.length
     },
     getAverageAttendance(course) {
         return `${parseInt(this.getCompletedLessonsList(course) / this.courses[course].attendances.length * 100)}%`
@@ -95,7 +95,14 @@ const groupProto = {
         const sorted = toSort.sort((st1, st2) => st2.getAverageGrade(courseName) - st1.getAverageGrade(courseName))
         return sorted.map(student => [getStudentId(student), student.getAverageGrade(courseName), student])
     },
-    getStudentsRankingByAttendance() {},
+    getStudentsRankingByAttendanceInCourse(courseName) {
+        const toSort = []
+        for (const studentId in this.students) {
+            toSort.push(this.students[studentId])
+        }
+        const sorted = toSort.sort((st1, st2) => parseFloat(st2.getAverageAttendance(courseName)) - parseFloat(st1.getAverageAttendance(courseName)))
+        return sorted.map(student => [getStudentId(student), student.getAverageAttendance(courseName), student])
+    },
 }
 
 Group.prototype = groupProto
@@ -103,45 +110,51 @@ Group.prototype = groupProto
 
 
 // // Create a new student instance
-// const student1 = new Student('John', 'Doe', 2002, 'Math')
+// const student1 = new Student("John", "Doe", 2002, "Math")
 
 // // Add some grades and attendances
-// student1.addGrade(90, 'Math')
-// student1.addGrade(85, 'Math')
-// student1.addAttendance(true, 'Math')
-// student1.addAttendance(false, 'Math')
-// student1.addAttendance(true, 'Math')
+// student1.addGrade(90, "Math")
+// student1.addGrade(85, "Math")
+// student1.addAttendance(true, "Math")
+// student1.addAttendance(false, "Math")
+// student1.addAttendance(true, "Math")
 
 // // Check average grade and attendance
-// console.log('Average Grade in Math:', student1.getAverageGrade('Math')) // Should print the average of 90 and 85
-// console.log('Average Attendance in Math:', student1.getAverageAttendance('Math')) // Should print attendance ratio
+// console.log("Average Grade in Math:", student1.getAverageGrade("Math")) // Should print the average of 90 and 85
+// console.log("Average Attendance in Math:", student1.getAverageAttendance("Math")) // Should print attendance ratio
 
 // // Add a new course
-// student1.addCourse('History')
-// student1.addGrade(75, 'History')
-// student1.addAttendance(true, 'History')
-// student1.addAttendance(true, 'History')
+// student1.addCourse("History")
+// student1.addGrade(75, "History")
+// student1.addAttendance(true, "History")
+// student1.addAttendance(true, "History")
 
-// // Check the student's overall information
+// // Check the student"s overall information
 // console.log(student1.getAllInformation())
 
 // // Replace a course
-// /*student1.replaceCourse('Math', 'Physics')
-// console.log('After replacing Math with Physics:', student1.getAllInformation())*/
+// student1.replaceCourse("History", "Physics")
+// console.log("After replacing History with Physics:", student1.getAllInformation())
 
 // // Remove a course
-// student1.removeCourse('History')
-// console.log('After removing History:', student1.getAllInformation())
+// student1.removeCourse("History")
+// console.log("After removing History:", student1.getAllInformation())
 
-// const student2 = new Student('Jane', 'Doe', 2002, 'Math')
+// const student2 = new Student("Jane", "Doe", 2002, "Math")
 // student2.addGrade(50, "Math")
+// student2.addAttendance(true, "Math")
+// student2.addAttendance(true, "Math")
 
 // const student3 = new Student("Andriy", "Kovbasov", 1999, "Math")
 // student3.addGrade(73, "Math")
 // student3.addGrade(37, "Math")
 // student3.addGrade(77, "Math")
 // student3.addGrade(33, "Math")
+// student3.addAttendance(false, "Math")
+// student3.addAttendance(true, "Math")
+// student3.addAttendance(true, "Math")
+// student3.addAttendance(false, "Math")
 
 // const mathGroup = new Group([student1, student2, student3])
 // console.log(mathGroup)
-// console.log(mathGroup.getStudentsRankingByGradesInCourse("Math"))
+// console.log(mathGroup.getStudentsRankingByAttendanceInCourse("Math"))
