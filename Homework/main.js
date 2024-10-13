@@ -18,13 +18,12 @@ const studentProto = {
         this.courses[course].attendances.push(attendance)
     },
     getAverageGrade(course) { // course name that the student is currently in is expected
-        console.log(course, this.courses[course])
         return this.courses[course].grades.reduce((totalGrade, currentGrade) => totalGrade + currentGrade, 0) / this.courses[course].grades.length
     },
     getAverageAttendance(course) { // course name that the student is currently in is expected
-        return `${parseInt(this.getCompletedLessonsList(course) / this.courses[course].attendances.length * 100)}%`
+        return `${parseInt(this.getCompletedLessonsAmount(course) / this.courses[course].attendances.length * 100)}%`
     },
-    getCompletedLessonsList(course) { // course name that the student is currently in is expected
+    getCompletedLessonsAmount(course) { // course name that the student is currently in is expected
         return this.courses[course].attendances.reduce((totalAttendance, currentAttendance) => totalAttendance + (currentAttendance ? 1 : 0), 0)
     },
     replaceCourse(currentCourse, newCourse) { // course name that the student is currently in + new course name as string are expected
@@ -55,7 +54,7 @@ const studentProto = {
                 Attendance: this.courses[cName].attendances,
                 ["Average grade"]: this.getAverageGrade(cName),
                 ["Average attendance"]: this.getAverageAttendance(cName),
-                ["Completed lessons amount"]: this.getCompletedLessonsList(cName)
+                ["Completed lessons amount"]: this.getCompletedLessonsAmount(cName)
             }
         }
 
@@ -109,6 +108,7 @@ Group.prototype = groupProto
 
 
 
+// TESTING //
 // // Create a new student instance
 // const student1 = new Student("John", "Doe", 2002, "Math")
 
