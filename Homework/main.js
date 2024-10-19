@@ -1,6 +1,7 @@
 // I decided to make a to-do list web-app. Most of the code is very well commented.
 // Available in browser: https://timofey-bidenko.github.io/
 
+
 // Check if user is on mobile, used later for visual improvements. (Taken somewhere from internet)
 const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || /Mobi|Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry/i.test(navigator.userAgent)
 
@@ -247,6 +248,8 @@ function reloadNote(noteToOpen = null) {
         noteOverview = notes[noteToOpen].noteDOM
     } else return; // Is not expected to happen, never happened in testing. Guard clause. (Because if n and noteOverview not defined, will trigger errors.)
 
+    lastOpenedId = n.id // Note class loaded, update the lastOpenedId.
+
     // Note Name text Input generation.
     const newNameInput = createInstance(nameField) // Clone the name input template, store clone as variable.
     const inp = newNameInput.querySelector("input") // Get the input
@@ -314,8 +317,6 @@ function reloadNote(noteToOpen = null) {
             addTodoElement()
         }
     })
-
-    lastOpenedId = n.id // Note loaded, update the lastOpenedId. On the bottom of function just to make code look clean and more readable.
 }
 
 document.getElementById("deleteNote").addEventListener("click", function() {
