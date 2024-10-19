@@ -498,3 +498,6 @@ function sortNotesByParams() {
 }
 
 applyCoolBorderRadius() // apply the cool border radius once the webpage loads.
+//
+//
+//
