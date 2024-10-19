@@ -376,12 +376,11 @@ const mainSearch = document.getElementById("mainSearchInput")
 
 function searchFilter() {
     const searchingFor = mainSearch.value
-    const searchByDate = isFinite(parseInt(searchingFor)) // the search might be by date
     if (searchingFor) { // show by given string + date clues
         for (const key in notes) {
             const value = notes[key]
             const n = value.noteClass
-            if (n.name.toLowerCase().indexOf(searchingFor.toLowerCase()) === -1 || n.creationDate.indexOf(searchingFor) === -1 || n.lastRedactionDate.indexOf(searchingFor) === -1 ) {
+            if (n.name.toLowerCase().indexOf(searchingFor.toLowerCase()) === -1 && n.creationDate.indexOf(searchingFor) === -1 && n.lastRedactionDate.indexOf(searchingFor) === -1) {
                 value.noteDOM.classList.add("none")
             } else {
                 value.noteDOM.classList.remove("none")
