@@ -29,8 +29,6 @@ function closeSecModal() {
 }
 closeSecModal()
 
-closeSMBtn.addEventListener("click", closeSecModal)
-
 
 
 const secondaryOverlay = document.getElementById("secondaryOverlay")
@@ -67,20 +65,19 @@ secondaryOverlay.addEventListener('click', function (event) {
     if (!currentlyOpenedModal) {
         closeOverlay() 
         return
-    };
+    }
     const rect = currentlyOpenedModal.getBoundingClientRect() // get the bounding box of the modal
 
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
+    const mouseX = event.clientX
+    const mouseY = event.clientY
 
     // Check if mouse is inside the element
-    const isInside = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+    const isInside = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom
 
     if (!isInside) {
-        //console.log("closedModal")
         closeOverlay()
     }
-});
+})
 
 
 
@@ -161,6 +158,7 @@ const notes = {}
 let lastOpenedId
 let todosCreatedInputs = []
 
+const createNote = document.getElementById("createNote")
 const noteListChildTemplate = document.getElementById("noteListChildTemplate")
 const nameField = document.getElementById("setName")
 const todoTemplate = document.getElementById("todoTemplate")
@@ -199,13 +197,13 @@ function saveCurrentNote(deleteIfEmpty = true) {
         const addSuccess = n.addTodo(todosCreatedInputs[i].value)
         
         if (typeof(addSuccess) === "number") {
-            console.log("Saving with status", todosCreatedInputs[i].parentElement.classList.contains("done"), todosCreatedInputs[i].parentElement.classList);
-            
             n.setTodoStatus(addSuccess, todosCreatedInputs[i].parentElement.classList.contains("done"))
         }
     }
 
     n.lastRedactionDate = new Date().toLocaleString()
+
+    sortNotesByParams()
 
     if (deleteIfEmpty) {
         const forCheck = n.getAmountsByStatus()
@@ -225,9 +223,6 @@ function reloadNote(noteToOpen = null) {
     genStuff.forEach( (instance) => {
         instance.remove()
     })
-
-    // nameField.classList.remove("none") // show the note name field
-    // nameField.value = "" // make sure to clear the older inputs
 
     let n
     let noteOverview
@@ -259,7 +254,6 @@ function reloadNote(noteToOpen = null) {
     todosCreatedInputs.push(inp)
 
     function addTodoElement(content = "", isDone = false) {
-        console.log("Adding", content, isDone);
         
         const newTodo = createInstance(todoTemplate)
         let done = isDone ? 0 : 1
@@ -281,6 +275,7 @@ function reloadNote(noteToOpen = null) {
                 d.classList.remove("cIcon")
                 newTodo.classList.remove("done")
             }
+            saveCurrentNote(false)
         }
         toggle()
         
@@ -289,22 +284,21 @@ function reloadNote(noteToOpen = null) {
         del.addEventListener("click", function() {
             input.classList.add("DeletedOne")
             newTodo.remove()
+            saveCurrentNote(false)
         })
     }
     
     if (n.todos.length > 0) {
-        console.log(n.todos)
         n.todos.forEach( (tdInfo) => {
-            console.log(tdInfo)
             addTodoElement(tdInfo.todo, tdInfo.completed)
         })
     } else {
         addTodoElement()
-    };
+    }
 
     const atd = createInstance(addToDo)
     atd.addEventListener("click", function () {
-        if (todosCreatedInputs.every((input) => (typeof(input.value) === "string" && input.value) || input.classList.contains("DeletedOne"))) {
+        if (todosCreatedInputs.slice(1).every((input) => (typeof(input.value) === "string" && input.value) || input.classList.contains("DeletedOne"))) {
             addTodoElement()
         }
     })
@@ -313,17 +307,12 @@ function reloadNote(noteToOpen = null) {
 }
 
 document.getElementById("deleteNote").addEventListener("click", function() {
-    console.log(lastOpenedId in notes);
     saveCurrentNote() // note will be auto deleted, if empty
-    console.log(lastOpenedId in notes);
 
     if (lastOpenedId in notes) { // if note still there, this means its not deleted and has some contents, prompt deletion
-        console.log("prompt");
-        
         openDeletePrompt() 
         return
     }
-    console.log("run");
     
     closeSecModal()
 })
@@ -357,6 +346,137 @@ document.getElementById("noteInfo").addEventListener("click", function() { //loa
 
 document.getElementById("closeInfoPrompt").addEventListener("click", closeOverlay)
 
-document.getElementById("createNote").addEventListener("click", () => {
+createNote.addEventListener("click", () => {
     reloadNote()
 })
+
+closeSMBtn.addEventListener("click", function() {
+    saveCurrentNote()
+    closeSecModal()
+})
+
+
+
+const mainSearch = document.getElementById("mainSearchInput")
+
+function searchFilter() {
+    const searchingFor = mainSearch.value
+    if (searchingFor) { // show by given string clue
+        for (const key in notes) {
+            const value = notes[key]
+            if (value.noteClass.name.toLowerCase().indexOf(searchingFor.toLowerCase()) === -1) {
+                value.noteDOM.classList.add("none")
+            } else {
+                value.noteDOM.classList.remove("none")
+            }
+        }
+    } else { // show all, since no string clue given
+        for (const key in notes) {
+            notes[key].noteDOM.classList.remove("none")
+        }
+    }
+}
+
+
+
+
+
+const primarySelect = document.getElementById("primarySelect")
+const categorySelect = document.getElementById("categorySelect")
+const subCategorySelect = document.getElementById("subCategorySelect")
+
+if (isMobile) {
+    primarySelect.parentElement.classList.remove("fTitle")
+    primarySelect.parentElement.classList.add("fMTitle")
+}
+
+function applyCoolBorderRadius(amount = 1) {
+    document.documentElement.style.setProperty("--amountOfSelects", amount)
+    if (amount === 1) {
+        primarySelect.style.setProperty("border-radius", "8px")
+    } else if (amount === 2) {
+        primarySelect.style.setProperty("border-radius", isMobile ? "8px 8px 0px 0px" : "8px 0px 0px 8px")
+        categorySelect.style.setProperty("border-radius", isMobile ? "0px 0px 8px 8px" : "0px 8px 0px 0px")
+    } else if (amount === 3) {
+        primarySelect.style.setProperty("border-radius", isMobile ? "8px 8px 0px 0px" : "8px 0px 0px 8px")
+        categorySelect.style.setProperty("border-radius", "0px")
+        subCategorySelect.style.setProperty("border-radius", isMobile ? "0px 0px 8px 8px" : "0px 8px 8px 0px")
+    }
+}
+
+function primarySelectionChange() {
+    const curVal = primarySelect.value
+
+    if (curVal === "comp") {
+        primarySelect.classList.add("textShadowCyan")
+        subCategorySelect.innerHTML = `
+            <option value="percentage">Percentage Done</option>
+            <option value="amount">Amount Done</option>
+        `
+        categorySelect.innerHTML = `
+            <option value="highToLow">High to Low</option>
+            <option value="lowToHigh">Low to High</option>
+        `
+        applyCoolBorderRadius(3)
+        categorySelect.classList.remove("none")
+        subCategorySelect.classList.remove("none")
+
+    } else if (curVal === "date") {
+        primarySelect.classList.add("textShadowGreen")
+        subCategorySelect.innerHTML = `
+            <option value="lastEdited">Last Edited</option>
+            <option value="creation">Creation Date</option>
+        `
+        categorySelect.innerHTML = `
+            <option value="newest">Newest to Oldest</option>
+            <option value="oldest">Oldest to Newest</option>
+        `
+        applyCoolBorderRadius(3)
+        categorySelect.classList.remove("none")
+        subCategorySelect.classList.remove("none")
+
+    } else {
+        primarySelect.classList.remove("textShadowCyan", "textShadowGreen")
+        categorySelect.classList.add("none")
+        subCategorySelect.classList.add("none")
+        applyCoolBorderRadius(1)
+    }
+
+    sortNotesByParams()
+}
+
+function sortNotesByParams() {
+    const sortBy = primarySelect.value
+    const order = categorySelect.value
+    const subOrder = subCategorySelect.value
+
+    if (sortBy === "comp") {
+        const sortedNotes = Object.values(notes).sort((a, b) => {
+            const aCompletion = subOrder === "percentage" ? a.noteClass.getAmountsByStatus().done / a.noteClass.todos.length || 0 : a.noteClass.getAmountsByStatus().done
+            const bCompletion = subOrder === "percentage" ? b.noteClass.getAmountsByStatus().done / b.noteClass.todos.length || 0 : b.noteClass.getAmountsByStatus().done
+            return order === "highToLow" ? bCompletion - aCompletion : aCompletion - bCompletion
+        })
+
+        sortedNotes.forEach( (note, index) => {
+            note.noteDOM.style.order = index
+        })
+        createNote.style.setProperty("order", `${sortedNotes.length + 99}`)
+    } else if (sortBy === "date") {
+        const sortedNotes = Object.values(notes).sort((a, b) => {
+            const aDateStrings = subOrder === "creation" ? a.noteClass.creationDate.split(", ") : a.noteClass.lastRedactionDate.split(", ")
+            const bDateStrings = subOrder === "creation" ? b.noteClass.creationDate.split(", ") : b.noteClass.lastRedactionDate.split(", ")
+            
+            const aDateYMDHMS = aDateStrings[0].split("/").reverse().join("") + aDateStrings[1].split(":").join("")
+            const bDateYMDHMS = bDateStrings[0].split("/").reverse().join("") + bDateStrings[1].split(":").join("")
+
+            return (order === "newest" ? bDateYMDHMS - aDateYMDHMS : aDateYMDHMS - bDateYMDHMS)
+        })
+
+        sortedNotes.forEach( (note, index) => {
+            note.noteDOM.style.setProperty("order", `${index}`)
+        })
+        createNote.style.setProperty("order", `${sortedNotes.length + 99}`)
+    }
+}
+
+applyCoolBorderRadius(1)
